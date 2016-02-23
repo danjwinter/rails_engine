@@ -10,10 +10,10 @@ class Api::V1::ItemsController < Api::ApiController
   end
 
   def find
-    if is_number? search_parameter
-      respond_with Item.where(item_params).take
-    else
+    if params_needing_downcase.include?(search_attribute)
       respond_with Item.where("lower(#{search_attribute}) LIKE ?", "%#{search_parameter.downcase}").take
+    else
+      respond_with Item.where(item_params).take
     end
   end
 
@@ -30,6 +30,10 @@ class Api::V1::ItemsController < Api::ApiController
   end
 
   private
+
+  def params_needing_downcase
+    %w(name description)
+  end
 
   def item_params
     params.permit(:name,
