@@ -8,7 +8,6 @@ describe Api::V1::TransactionsController do
       transaction_response = json_response
       expect(transaction_response[:invoice_id]).to eq @transaction.invoice_id
       expect(transaction_response[:credit_card_number]).to eq @transaction.credit_card_number
-      expect(transaction_response[:credit_card_expiration_date]).to eq @transaction.credit_card_expiration_date
       expect(transaction_response[:result]).to eq @transaction.result
       expect(response.status).to eq 200
     end
@@ -22,7 +21,7 @@ describe Api::V1::TransactionsController do
 
     it "returns 4 records from the database" do |variable|
       transactions_response = JSON.parse(response.body, symbolize_names: true)
-      expect(transactions_response[:transactions].count).to eq 4
+      expect(transactions_response.count).to eq 4
     end
   end
 end

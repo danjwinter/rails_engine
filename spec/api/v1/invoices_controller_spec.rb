@@ -21,7 +21,7 @@ describe Api::V1::InvoicesController do
 
     it "returns 4 records from the database" do |variable|
       invoices_response = JSON.parse(response.body, symbolize_names: true)
-      expect(invoices_response[:invoices].count).to eq 4
+      expect(invoices_response.count).to eq 4
     end
   end
 end

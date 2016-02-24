@@ -10,32 +10,38 @@ class Api::V1::CustomersController < Api::ApiController
   end
 
   def find
-    if is_number? search_parameter
-      respond_with Customer.where(item_params).take
-    else
-      respond_with Customer.where("lower(#{search_attribute}) LIKE ?", "%#{search_parameter.downcase}").take
-    end
-  end
+    respond_with Customer.where(customer_params).take
 
-  def find_all
-    if is_number? search_attribute
-      respond_with Customer.where(item_params)
-    else
-      respond_with Customer.where("lower(#{search_attribute}) LIKE ?", "%#{search_parameter.downcase}")
-    end
-  end
-
-  def random
-    respond_with Customer.limit(1).order("RANDOM()")
+    # customer_params.each_with_index do |key_value, index|
+    #   if index == 0
+    #     if params_needing_downcase.include?(key_value[0])
+    #       @query = Customer.where("#{key_value[0]} ilike ?", key_value[1])
+    #     else
+    #       @query = Customer.where(key_value[0] => key_value[1])
+    #     end
+    #   else
+    #     if params_needing_downcase.include?(key_value[0])
+    #       @query = @query.where("#{key_value[0]} ilike ?", key_value[1])
+    #     else
+    #       @query.where(key_value[0] => key_value[1])
+    #     end
+    #   end
+    # end
+    # respond_with @query.take
   end
 
   private
 
-  def item_params
+  def customer_params
     params.permit(:first_name,
                   :last_name,
                   :created_at,
-                  :updated_at)
+                  :updated_at,
+                  :id)
+  end
+
+  def params_needing_downcase
+    %w(first_name last_name)
   end
 
   def search_attribute
