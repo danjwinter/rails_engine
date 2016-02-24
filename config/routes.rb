@@ -5,11 +5,17 @@ Rails.application.routes.draw do
         member do
           get :items, to: "merchants/merchants_items#index"
           get :invoices, to: "merchants/merchants_invoices#index"
+          get :revenue, to: "merchants/merchants_revenues#show"
+          get :favorite_customer, to: "merchants/merchants_favorite_customers#show"
+          get :customers_with_pending_invoices, to: "merchants/merchants_customers_pending_invoices#index"
         end
         collection do
           get :find, to: "merchants_finder#show"
           get :find_all, to: "merchants_finder#index"
           get :random, to: "merchants_random#show"
+          get :most_revenue, to: "merchants/merchants_revenues#index"
+          get :most_items, to: "merchants/merchants_most_items#index"
+          get :revenue, to: "merchants/merchants_total_revenues#show"
         end
       end
       resources :customers, only: [:show, :index] do
@@ -27,11 +33,14 @@ Rails.application.routes.draw do
         member do
           get :invoice_items, to: "items/items_invoice_items#index"
           get :merchant, to: "items/items_merchants#show"
+          get :best_day, to: "items/items_best_days#show"
         end
         collection do
           get :find, to: "items_finder#show"
           get :find_all, to: "items_finder#index"
           get :random, to: "items_random#show"
+          get :most_revenue, to: "items/items_revenues#index"
+          get :most_items, to: "items/items_sales#index"
         end
       end
       resources :invoices, only: [:show, :index] do
