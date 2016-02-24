@@ -8,7 +8,7 @@ describe Api::V1::ItemsController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
+      expect(item_response[:unit_price]).to eq @item.unit_price
       expect(response.status).to eq 200
     end
   end

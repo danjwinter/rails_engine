@@ -6,10 +6,11 @@ describe Api::V1::InvoiceItemsController do
       @invoice_item = create(:invoice_item)
       get api_v1_invoice_item_path @invoice_item, format: :json
       invoice_item_response = json_response
+
       expect(invoice_item_response[:item_id]).to eq @invoice_item.item_id
       expect(invoice_item_response[:invoice_id]).to eq @invoice_item.invoice_id
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
-      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
+      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price
       expect(response.status).to eq 200
     end
   end

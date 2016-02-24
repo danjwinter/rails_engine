@@ -20,4 +20,12 @@ class Api::V1::ItemsFinderController < Api::ApiController
                   :updated_at,
                   :id)
   end
+
+  # def db_adjusted_params
+  #   adjusted_params = item_params.dup
+  #   if item_params[:unit_price]
+  #     adjusted_params[:unit_price] = (item_params[:unit_price].to_f * 100).round
+  #   end
+  #   adjusted_params
+  # end
 end

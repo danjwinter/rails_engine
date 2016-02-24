@@ -6,7 +6,7 @@ describe Api::V1::Invoices::InvoicesTransactionsController do
       @invoice = create(:invoice)
     end
 
-    it "returns the correct invoice with the find and id parameter" do
+    it "returns the correct invoice transactions" do
       3.times { @invoice.transactions << create(:transaction) }
       first_transaction = @invoice.transactions.first
 

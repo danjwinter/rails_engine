@@ -15,7 +15,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
       invoice_item_response = json_response
       expect(invoice_item_response[:id]).to eq @invoice_item.id
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
-      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
+      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price
       expect(response.status).to eq 200
     end
 
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
       get "/api/v1/invoice_items/find?quantity=#{@invoice_item.quantity}"
       invoice_item_response = json_response
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
-      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
+      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price
       expect(response.status).to eq 200
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
       get "/api/v1/invoice_items/find?unit_price=#{@invoice_item.unit_price}"
       invoice_item_response = json_response
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
-      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
+      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price
       expect(response.status).to eq 200
     end
 
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
       get "/api/v1/invoice_items/find?created_at=#{@invoice_item.created_at}"
       invoice_item_response = json_response
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
-      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
+      expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price
       expect(response.status).to eq 200
     end
   end

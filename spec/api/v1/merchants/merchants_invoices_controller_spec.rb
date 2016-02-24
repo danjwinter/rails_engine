@@ -6,7 +6,7 @@ describe Api::V1::Merchants::MerchantsInvoicesController do
       @merchant = create(:merchant, name: "Bob Frank")
     end
 
-    it "returns the correct merchant with the find and id parameter" do
+    it "returns the correct merchant invoices" do
       3.times { @merchant.invoices << create(:invoice) }
       first_invoice = @merchant.invoices.first
 

@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   has_many :invoices
+  has_many :transactions, through: :invoices
 
   def self.find_multiple_params(customer_params)
     customer_params.each_with_index do |key_value, index|

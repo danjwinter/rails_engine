@@ -20,4 +20,12 @@ class Api::V1::InvoiceItemsFinderController < Api::ApiController
                     :updated_at,
                     :id)
   end
+
+  # def db_adjusted_params
+  #   adjusted_params = invoice_item_params.dup
+  #   if invoice_item_params[:unit_price]
+  #     adjusted_params[:unit_price] = invoice_item_params[:unit_price].to_f * 100
+  #   end
+  #   adjusted_params
+  # end
 end

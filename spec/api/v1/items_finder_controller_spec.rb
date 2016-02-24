@@ -3,18 +3,20 @@ require 'rails_helper'
 describe Api::V1::ItemsFinderController do
   describe "GET find", type: :controller do
     before(:each) do
-      @item = create(:item, name: "Chair", unit_price: 10, created_at: "2012-03-27 14:53:59 UTC")
+      @item = create(:item, name: "Chair", unit_price: 100, created_at: "2012-03-27 14:53:59 UTC")
+      # @item.unit_price = (@item.unit_price / 100).to_s
       create(:item, name: "Rocking chair", )
       create(:item, name: "Pool")
     end
 
     it "returns the correct item with the find and id parameter" do
       get :show, id: @item.id, format: :json
+
       # get "/api/v1/items/find?id=#{@item.id}"
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
+      expect(item_response[:unit_price]).to eq @item.unit_price
       expect(response.status).to eq 200
     end
 
@@ -24,7 +26,7 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
+      expect(item_response[:unit_price]).to eq @item.unit_price
       expect(response.status).to eq 200
     end
 
@@ -34,7 +36,7 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
+      expect(item_response[:unit_price]).to eq @item.unit_price
       expect(response.status).to eq 200
     end
 
@@ -44,7 +46,7 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
+      expect(item_response[:unit_price]).to eq @item.unit_price
       expect(response.status).to eq 200
     end
   end

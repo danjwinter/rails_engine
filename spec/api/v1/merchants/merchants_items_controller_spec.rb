@@ -6,7 +6,7 @@ describe Api::V1::Merchants::MerchantsItemsController do
       @merchant = create(:merchant, name: "Bob Frank")
     end
 
-    it "returns the correct merchant with the find and id parameter" do
+    it "returns the correct merchant items" do
       3.times { @merchant.items << create(:item) }
       first_item = @merchant.items.first
 
