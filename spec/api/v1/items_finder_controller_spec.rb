@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Api::V1::ItemsFinderController do
   describe "GET find", type: :controller do
     before(:each) do
-      @item = create(:item, name: "Chair", unit_price: 100, created_at: "2012-03-27 14:53:59 UTC")
+      @item = create(:item, name: "Chair", unit_price: 1.00, created_at: "2012-03-27 14:53:59 UTC")
       # @item.unit_price = (@item.unit_price / 100).to_s
       create(:item, name: "Rocking chair", )
       create(:item, name: "Pool")
@@ -16,7 +16,7 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price
+      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
       expect(response.status).to eq 200
     end
 
@@ -26,7 +26,7 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price
+      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
       expect(response.status).to eq 200
     end
 
@@ -36,7 +36,7 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price
+      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
       expect(response.status).to eq 200
     end
 
@@ -46,14 +46,14 @@ describe Api::V1::ItemsFinderController do
       item_response = json_response
       expect(item_response[:name]).to eq @item.name
       expect(item_response[:description]).to eq @item.description
-      expect(item_response[:unit_price]).to eq @item.unit_price
+      expect(item_response[:unit_price]).to eq @item.unit_price.to_s
       expect(response.status).to eq 200
     end
   end
 
   describe "GET find_all" do
     before(:each) do
-      @item1 = create(:item, name: "Chair", unit_price: 10)
+      @item1 = create(:item, name: "Chair", unit_price: 1.00)
       @item2 = create(:item, name: "chair")
       @item3 = create(:item, name: "Pool")
     end
