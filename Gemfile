@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem "active_model_serializers", github: "rails-api/active_model_serializers"
 gem 'responders'
+gem 'puma'
 gem 'simplecov', :require => false, :group => :test
 
 group :test do
