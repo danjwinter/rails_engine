@@ -5,7 +5,7 @@ class Merchant < ActiveRecord::Base
 
   scope :successful_transactions, -> { joins(:invoices).joins(:transactions)
                                                        .where(transactions:
-                                                       { result: "success" })}
+                                                              { result: "success" })}
 
   def revenue
     invoices.paid.joins(:invoice_items).sum("quantity * unit_price")
@@ -27,7 +27,8 @@ class Merchant < ActiveRecord::Base
   def self.top_revenue(quantity)
     merchant_ids = Invoice.paid
                           .joins(:invoice_items)
-                          .select("merchant_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue")
+                          .select("merchant_id,
+                                  sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue")
                           .group("invoices.merchant_id")
                           .order("invoice_revenue DESC")
                           .first(quantity)
@@ -39,7 +40,8 @@ class Merchant < ActiveRecord::Base
   def self.top_selling_merchants(quantity)
     top_sellers = Invoice.paid
                          .joins(:invoice_items)
-                         .select("merchant_id, sum(invoice_items.quantity) AS total_items_sold")
+                         .select("merchant_id,
+                                 sum(invoice_items.quantity) AS total_items_sold")
                          .group("invoices.merchant_id").order("total_items_sold DESC")
                          .first(quantity)
     top_sellers.map do |sales|

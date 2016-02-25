@@ -7,6 +7,9 @@ RSpec.describe Merchant, type: :model do
 
   it { should respond_to(:name) }
   it { should be_valid }
+  it { should have_many(:items) }
+  it { should have_many(:invoices) }
+  it { should have_many(:transactions) }
 
   before(:each) do
                 create(:customer)

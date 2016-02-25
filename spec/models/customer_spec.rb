@@ -8,6 +8,8 @@ RSpec.describe Customer, type: :model do
   it { should respond_to(:first_name) }
   it { should respond_to(:last_name) }
   it { should be_valid }
+  it { should have_many(:invoices) }
+  it { should have_many(:transactions) }
 
   it "#favotie_merchant returns the merchant the customer has bought the most from" do
     create(:merchant)
