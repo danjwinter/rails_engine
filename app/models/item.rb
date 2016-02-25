@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
   end
 
   def best_day
+    # byebug
     Invoice.paid.joins(:invoice_items).where("invoice_items.item_id = #{id}").select("invoices.created_at, sum(invoice_items.quantity) AS daily_sum").group("invoices.created_at").order("daily_sum DESC").first.created_at
   end
-
 end

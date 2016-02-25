@@ -21,7 +21,7 @@ describe Api::V1::Items::ItemsBestDaysController do
                 create(:invoice_item,
                        item_id: @item.id,
                        invoice_id: invoice.id)
-                     end
+      end
 
 
     end
