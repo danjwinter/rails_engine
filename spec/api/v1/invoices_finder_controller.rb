@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::InvoicesFinderController do
-  describe "GET find" do
+  describe "GET find", type: :controller do
     before(:each) do
       @invoice = create(:invoice, created_at: "2012-03-27 14:53:59 UTC")
       create(:invoice)
@@ -9,8 +9,7 @@ describe Api::V1::InvoicesFinderController do
     end
 
     it "returns the correct invoice with the find and id parameter" do
-      # get :find, id: @invoice.id, format: :json
-      get "/api/v1/invoices/find?id=#{@invoice.id}"
+      get :show, id: @invoice.id, format: :json
       invoice_response = json_response
       expect(invoice_response[:id]).to eq @invoice.id
       expect(invoice_response[:status]).to eq @invoice.status
@@ -20,14 +19,14 @@ describe Api::V1::InvoicesFinderController do
     end
 
     it "returns the correct invoice with the find and status parameter" do
-      get "/api/v1/invoices/find?quantity=#{@invoice.status}"
+      get :show, quantity: @invoice.quantity, format: :json
       invoice_response = json_response
       expect(invoice_response[:id]).to eq @invoice.id
       expect(response.status).to eq 200
     end
 
     it "returns the correct invoice with find and created_at" do
-      get "/api/v1/invoices/find?created_at=#{@invoice.created_at}"
+      get :show, created_at: @invoice.created_at, format: :json
       invoice_response = json_response
       expect(invoice_response[:id]).to eq @invoice.id
       expect(response.status).to eq 200

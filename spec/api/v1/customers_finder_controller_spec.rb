@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::CustomersFinderController do
-  describe "GET find" do
+  describe "GET find", type: :controller do
     before(:each) do
       @customer = create(:customer, first_name: "Bob", created_at: "2012-03-27 14:53:59 UTC")
       create(:customer)
@@ -9,8 +9,7 @@ describe Api::V1::CustomersFinderController do
     end
 
     it "returns the correct customer with the find and id parameter" do
-      # get :find, id: @customer.id, format: :json
-      get "/api/v1/customers/find?id=#{@customer.id}"
+      get :show, id: @customer.id, format: :json
       customer_response = json_response
       expect(customer_response[:first_name]).to eq @customer.first_name
       expect(customer_response[:last_name]).to eq @customer.last_name
@@ -18,7 +17,7 @@ describe Api::V1::CustomersFinderController do
     end
 
     it "returns the correct customer with the find and name parameter" do
-      get "/api/v1/customers/find?first_name=#{@customer.first_name}"
+      get :show, first_name: @customer.first_name, format: :json
       customer_response = json_response
       expect(customer_response[:first_name]).to eq @customer.first_name
       expect(customer_response[:last_name]).to eq @customer.last_name
@@ -26,7 +25,7 @@ describe Api::V1::CustomersFinderController do
     end
 
     it "returns the correct customer with the find and name downcased parameter" do
-      get "/api/v1/customers/find?first_name=#{@customer.first_name.downcase}"
+      get :show, first_name: @customer.first_name.downcase, format: :json
       customer_response = json_response
       expect(customer_response[:first_name]).to eq @customer.first_name
       expect(customer_response[:last_name]).to eq @customer.last_name
@@ -34,7 +33,7 @@ describe Api::V1::CustomersFinderController do
     end
 
     it "returns the correct customer with find and created_at" do
-      get "/api/v1/customers/find?created_at=#{@customer.created_at}"
+      get :show, created_at: @customer.created_at, format: :json
       customer_response = json_response
       expect(customer_response[:first_name]).to eq @customer.first_name
       expect(customer_response[:last_name]).to eq @customer.last_name
@@ -42,7 +41,7 @@ describe Api::V1::CustomersFinderController do
     end
   end
 
-  describe "GET find_all" do
+  describe "GET find_all", type: :controller do
     before(:each) do
       @customer1 = create(:customer, first_name: "Bob", last_name: "Smith")
       @customer2 = create(:customer, first_name: "Bob", last_name: "Johnson")
@@ -50,7 +49,7 @@ describe Api::V1::CustomersFinderController do
     end
 
     it "returns the correct customer with the find and id parameter" do
-      get "/api/v1/customers/find_all?first_name=bob"
+      get :index, format: :json, first_name: "bob"
       customer_response = json_response
       expect(customer_response.count).to eq 2
       expect(customer_response.first[:id]).to eq @customer1.id

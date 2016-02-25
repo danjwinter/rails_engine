@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::MerchantsFinderController do
-  describe "GET find" do
+  describe "GET find", type: :controller do
     before(:each) do
       @merchant = create(:merchant, name: "Bob Frank")
       create(:merchant, name: "Bob Smith")
@@ -9,28 +9,34 @@ describe Api::V1::MerchantsFinderController do
     end
 
     it "returns the correct merchant with the find and id parameter" do
-      get "/api/v1/merchants/find?id=#{@merchant.id}"
+      get :show, id: @merchant.id, format: :json
+
       merchant_response = json_response
+      
       expect(merchant_response[:name]).to eq @merchant.name
       expect(response.status).to eq 200
     end
 
     it "returns the correct merchant with the find and name parameter" do
-      get "/api/v1/merchants/find?name=#{@merchant.name}"
+      get :show, name: @merchant.name, format: :json
+
       merchant_response = json_response
+
       expect(merchant_response[:name]).to eq @merchant.name
       expect(response.status).to eq 200
     end
 
     it "returns the correct merchant with the find and name downcased parameter" do
-      get "/api/v1/merchants/find?name=#{@merchant.name.downcase}"
+      get :show, name: @merchant.name.downcase, format: :json
+
       merchant_response = json_response
+
       expect(merchant_response[:name]).to eq @merchant.name
       expect(response.status).to eq 200
     end
   end
 
-  describe "GET #show + find_all" do
+  describe "GET #index", type: :controller do
     before(:each) do
       @merchant1 = create(:merchant, name: "Bob")
       @merchant2 = create(:merchant, name: "BoB")
@@ -38,8 +44,10 @@ describe Api::V1::MerchantsFinderController do
     end
 
     it "returns the correct merchant with the find and id parameter" do
-      get "/api/v1/merchants/find_all?name=bob"
+      get :index, format: :json, name: "bob"
+
       merchant_response = json_response
+
       expect(merchant_response.count).to eq 2
       expect(merchant_response.first[:id]).to eq @merchant1.id
       expect(merchant_response.last[:id]).to eq @merchant2.id

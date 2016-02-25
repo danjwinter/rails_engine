@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::InvoiceItemsFinderController do
-  describe "GET find" do
+  describe "GET find", type: :controller do
     before(:each) do
       @invoice_item = create(:invoice_item, unit_price: 3.00, quantity: 55, created_at: "2012-03-27 14:53:59 UTC")
       create(:invoice_item)
@@ -10,8 +10,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
     end
 
     it "returns the correct invoice_item with the find and id parameter" do
-      # get :find, id: @invoice_item.id, format: :json
-      get "/api/v1/invoice_items/find?id=#{@invoice_item.id}"
+      get :show, id: @invoice_item.id, format: :json
       invoice_item_response = json_response
       expect(invoice_item_response[:id]).to eq @invoice_item.id
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
@@ -20,7 +19,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
     end
 
     it "returns the correct invoice_item with the find and name parameter" do
-      get "/api/v1/invoice_items/find?quantity=#{@invoice_item.quantity}"
+      get :show, quantity: @invoice_item.quantity, format: :json
       invoice_item_response = json_response
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
       expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
@@ -28,7 +27,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
     end
 
     it "returns the correct invoice_item with the find and name downcased parameter" do
-      get "/api/v1/invoice_items/find?unit_price=#{@invoice_item.unit_price}"
+      get :show, unit_price: @invoice_item.unit_price, format: :json
       invoice_item_response = json_response
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
       expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s
@@ -36,7 +35,7 @@ RSpec.describe Api::V1::InvoiceItemsFinderController do
     end
 
     it "returns the correct invoice_item with find and created_at" do
-      get "/api/v1/invoice_items/find?created_at=#{@invoice_item.created_at}"
+      get :show, created_at: @invoice_item.created_at, format: :json
       invoice_item_response = json_response
       expect(invoice_item_response[:quantity]).to eq @invoice_item.quantity
       expect(invoice_item_response[:unit_price]).to eq @invoice_item.unit_price.to_s

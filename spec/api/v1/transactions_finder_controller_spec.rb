@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::TransactionsFinderController do
-  describe "GET find" do
+  describe "GET find", type: :controller do
     before(:each) do
       @transaction = create(:transaction, created_at: "2012-03-27 14:53:59 UTC")
       create(:transaction)
@@ -9,8 +9,8 @@ describe Api::V1::TransactionsFinderController do
     end
 
     it "returns the correct transaction with the find and id parameter" do
-      # get :find, id: @transaction.id, format: :json
-      get "/api/v1/transactions/find?id=#{@transaction.id}"
+      get :show, id: @transaction.id, format: :json
+      # get "/api/v1/transactions/find?id=#{@transaction.id}"
       transaction_response = json_response
       expect(transaction_response[:id]).to eq @transaction.id
       expect(transaction_response[:invoice_id]).to eq @transaction.invoice_id
@@ -21,14 +21,16 @@ describe Api::V1::TransactionsFinderController do
     end
 
     it "returns the correct transaction with the find and status parameter" do
-      get "/api/v1/transactions/find?credit_card_number=#{@transaction.credit_card_number}"
+      get :show, credit_card_number: @transaction.credit_card_number, format: :json
+      # get "/api/v1/transactions/find?credit_card_number=#{@transaction.credit_card_number}"
       transaction_response = json_response
       expect(transaction_response[:id]).to eq @transaction.id
       expect(response.status).to eq 200
     end
 
     it "returns the correct transaction with find and created_at" do
-      get "/api/v1/transactions/find?created_at=#{@transaction.created_at}"
+      get :show, created_at: @transaction.created_at, format: :json
+      # get "/api/v1/transactions/find?created_at=#{@transaction.created_at}"
       transaction_response = json_response
       expect(transaction_response[:id]).to eq @transaction.id
       expect(response.status).to eq 200
@@ -48,6 +50,7 @@ describe Api::V1::TransactionsFinderController do
       transaction_response = json_response
       expect(transaction_response.count).to eq 2
       expect(transaction_response.first[:id]).to eq @transaction1.id
+      expect(transaction_response.first).to have_key(:credit_card_number)
       expect(transaction_response.last[:id]).to eq @transaction2.id
       expect(response.status).to eq 200
     end
