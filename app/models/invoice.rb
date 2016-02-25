@@ -10,6 +10,7 @@ class Invoice < ActiveRecord::Base
   scope :by_date, -> (date) { where(created_at: date ) }
   # scope :highest_customer_count, -> { group(:customer_id).calculate(:count, :customer_id, group: "customer_id").max }
   scope :favorite_customers, -> { select("customer_id, count(customer_id) AS customer_count").group("invoices.customer_id").order("customer_count DESC") }
+  scope :favorite_merchants, -> { select("merchant_id, count(merchant_id) AS merchant_count").group("invoices.merchant_id").order("merchant_count DESC") }
   scope :total_revenue_by_date, -> (date) { paid.where(created_at: date).joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price").to_s }
 end
 # (time) { where("created_at < ?", time)

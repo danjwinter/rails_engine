@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         member do
           get :invoices, to: "customers/customers_invoices#index"
           get :transactions, to: "customers/customers_transactions#index"
+          get :favorite_merchant, to: "customers/customers_favorite_merchants#show"
         end
         collection do
           get :find, to: "customers_finder#show"
