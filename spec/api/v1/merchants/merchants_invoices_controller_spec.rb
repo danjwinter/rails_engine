@@ -8,9 +8,9 @@ describe Api::V1::Merchants::MerchantsInvoicesController do
 
     it "returns the correct merchant invoices" do
       3.times { @merchant.invoices << create(:invoice) }
-      first_invoice = @merchant.invoices.first
-
       get :index, format: :json, id: @merchant.id
+
+      first_invoice = @merchant.invoices.first
       merchants_response = json_response
 
       expect(merchants_response.count).to eq 3

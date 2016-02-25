@@ -8,9 +8,9 @@ describe Api::V1::Merchants::MerchantsItemsController do
 
     it "returns the correct merchant items" do
       3.times { @merchant.items << create(:item) }
-      first_item = @merchant.items.first
-
       get :index, format: :json, id: @merchant.id
+
+      first_item = @merchant.items.first
       merchants_response = json_response
 
       expect(merchants_response.count).to eq 3

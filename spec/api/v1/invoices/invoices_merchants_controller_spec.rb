@@ -8,7 +8,6 @@ describe Api::V1::Invoices::InvoicesMerchantsController do
     end
 
     it "returns the correct invoice merchant" do
-
       get :show, format: :json, id: @invoice.id
       invoices_response = json_response
 

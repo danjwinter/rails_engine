@@ -10,7 +10,6 @@ class Api::V1::Merchants::MerchantsRevenuesController < Api::ApiController
   end
 
   def index
-    # byebug
     respond_with Merchant.top_revenue(params[:quantity])
   end
 end

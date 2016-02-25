@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::Items::ItemsMerchantsController do
-  describe "GET#index", type: :controller do
+  describe "GET#show", type: :controller do
     before(:each) do
       @merchant = create(:merchant)
       @item = create(:item, merchant_id: @merchant.id)

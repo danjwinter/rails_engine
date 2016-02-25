@@ -20,19 +20,13 @@ class Merchant < ActiveRecord::Base
 
   def pending_invoices_customers
     Customer.find(invoices.pending.pluck(:customer_id))
-    # Customer.joins(:invoices).joins(:transactions).where(transactions: { result: "success"})
-    # Customer.joins(:invoices).merge(Invoice.pending)
   end
 
   def self.top_revenue(quantity)
-    # merchant_ids = Invoice.paid.joins(:invoice_items).select("merchant_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue").group("invoices.merchant_id").order("invoice_revenue DESC").first(quantity).map(&:merchant_id)
-
     merchant_ids = Invoice.paid.joins(:invoice_items).select("merchant_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue").group("invoices.merchant_id").order("invoice_revenue DESC").first(quantity)
     merchant_ids.map do |invoice|
       Merchant.find(invoice.merchant_id)
     end
-
-    # merchant_ids = Invoice.paid.joins(:invoice_items).select("merchant_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue").group("invoices.merchant_id").order("invoice_revenue DESC").includes(:merchant)first(quantity)
   end
 
   def self.top_selling_merchants(quantity)
@@ -41,6 +35,4 @@ class Merchant < ActiveRecord::Base
       Merchant.find(sales.merchant_id)
     end
   end
-
-
 end

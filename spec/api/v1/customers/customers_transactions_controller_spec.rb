@@ -8,9 +8,7 @@ describe Api::V1::Customers::CustomersTransactionsController do
       @transaction = create(:transaction, invoice_id: invoice.id)
     end
 
-    it "returns the correct customer invoices" do
-      first_transaction = @customer.transactions.first
-
+    it "returns the correct customer transactions" do
       get :index, format: :json, id: @customer.id
       customers_response = json_response
 

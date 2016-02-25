@@ -1,11 +1,21 @@
 require 'factory_girl_rails'
 require_relative 'support/request_helpers'
+require 'simplecov'
+SimpleCov.start
 
 def json_response
   @json_response ||= JSON.parse(response.body, symbolize_names: true)
 end
 
 RSpec.configure do |config|
+
+config.before(:each) do
+  DatabaseCleaner.start
+end
+
+config.after(:each) do
+  DatabaseCleaner.clean
+end
 
 
 config.before(:suite) do

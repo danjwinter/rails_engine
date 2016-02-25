@@ -6,10 +6,8 @@ class Item < ActiveRecord::Base
   default_scope { order('id ASC')}
 
   def self.highest_revenue_items(quantity)
-    invoices = Invoice.paid.joins(:invoice_items).select("invoice_items.item_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue").group("invoice_items.item_id").order("invoice_revenue DESC").first(quantity)
-    invoices.map do |invoice|
-        Item.find(invoice.item_id)
-    end
+    invoice_ids = Invoice.paid.joins(:invoice_items).select("invoice_items.item_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue").group("invoice_items.item_id").order("invoice_revenue DESC").first(quantity).map(&:item_id)
+    Item.find(invoice_ids)
   end
 
   def self.most_quantity_sold(quantity)
@@ -20,13 +18,7 @@ class Item < ActiveRecord::Base
   end
 
   def best_day
-    Invoice.paid.joins(:invoice_items).where("invoice_items.item_id = #{id}").select("invoices.created_at, sum(invoice_items.quantity) AS daily_sum").group("invoices.created_at").order("daily_sum DESC").first.created_at 
+    Invoice.paid.joins(:invoice_items).where("invoice_items.item_id = #{id}").select("invoices.created_at, sum(invoice_items.quantity) AS daily_sum").group("invoices.created_at").order("daily_sum DESC").first.created_at
   end
 
 end
-
-
-
-
-
-# Invoice.paid.joins(:invoice_items).select("invoice_items.items_id, sum(invoice_items.quantity * invoice_items.unit_price) AS invoice_revenue").group("invoices.merchant_id").order("invoice_revenue DESC").first(quantity)
