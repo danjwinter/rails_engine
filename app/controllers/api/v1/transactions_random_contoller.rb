@@ -4,5 +4,4 @@ class Api::V1::TransactionsRandomController < Api::ApiController
   def show
     respond_with Transaction.limit(1).order("RANDOM()")
   end
-
 end
