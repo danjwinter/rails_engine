@@ -1,7 +1,10 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails Engine is the second project given during Module 3 at Turing School of Software and Design.
+
+Students are given several CSVs as data sets and need to construct an API that responds to pre-defined endpoints.
+
+
 
 Things you may want to cover:
 

@@ -19,7 +19,7 @@ describe Api::V1::InvoicesFinderController do
     end
 
     it "returns the correct invoice with the find and status parameter" do
-      get :show, quantity: @invoice.quantity, format: :json
+      get :show, status: @invoice.status, format: :json
       invoice_response = json_response
       expect(invoice_response[:id]).to eq @invoice.id
       expect(response.status).to eq 200
